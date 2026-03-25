@@ -63,21 +63,23 @@ def scrape_attendance(username, password, subjectName):
 
 @app.route("/attendance", methods=["POST"])
 def get_attendance():
-    body = request.json
+    return {"presents": "10", "absents": "5"}
+# def get_attendance():
+#     body = request.json
 
-    username = body.get("username")
-    password = body.get("password")
-    subject = body.get("subject")
+#     username = body.get("username")
+#     password = body.get("password")
+#     subject = body.get("subject")
 
-    if not username or not password or not subject:
-        return jsonify({"error": "Missing fields"}), 400
+#     if not username or not password or not subject:
+#         return jsonify({"error": "Missing fields"}), 400
 
-    try:
-        html_data = scrape_attendance(username, password, subject)
-        result = countPresents(html_data)
-        return jsonify(result)
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
+#     try:
+#         html_data = scrape_attendance(username, password, subject)
+#         result = countPresents(html_data)
+#         return jsonify(result)
+#     except Exception as e:
+#         return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":
