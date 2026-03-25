@@ -21,13 +21,21 @@ RUN apt-get update && apt-get install -y \
     libasound2 \
     && rm -rf /var/lib/apt/lists/*
 
+# Set working directory
 WORKDIR /app
 
+# Copy project files
 COPY . .
 
-RUN pip install -r requirements.txt
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Install Playwright + browser
+# Install Playwright and Chromium browser
+RUN pip install playwright
 RUN playwright install chromium
 
+# Expose port (Railway uses 8080)
+EXPOSE 8080
+
+# Run your app
 CMD ["gunicorn", "automation:app", "--bind", "0.0.0.0:8080"]
