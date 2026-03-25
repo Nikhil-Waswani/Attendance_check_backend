@@ -1,0 +1,1 @@
+web: playwright install chromium && gunicorn automation:app
